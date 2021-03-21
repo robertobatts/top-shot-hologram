@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 import { Input, Button } from '@material-ui/core';
-import Cube from './Cube'
+import Cube from './Cube';
+import webScraper from "./WebScraper";
 
 export default class App extends React.Component {
 
@@ -31,8 +32,9 @@ export default class App extends React.Component {
     }
   }
 
-  triggerProcess() {
-    console.log(this.state.link)
+  async triggerProcess() {
+    console.log(this.state.link);
+    await webScraper.scrape()
   }
 }
 
