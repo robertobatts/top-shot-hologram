@@ -26,7 +26,7 @@ export default class Cube extends React.Component {
     video.rotation.set(0, -Math.PI, 0);
     video.material = new StandardMaterial("material", scene);
     video.material.emissiveColor = new Color3(1, 1, 1);
-    video.material.diffuseTexture = new VideoTexture("video", "https://assets.nbatopshot.com/editions/1_metallic_gold_le_rare/1fc9b2f1-d444-4645-a12a-7d0500214fa2/play_1fc9b2f1-d444-4645-a12a-7d0500214fa2_1_metallic_gold_le_rare_capture_Animated_1080_1920_Black.mp4", scene, true);
+    video.material.diffuseTexture = new VideoTexture("video", "http://localhost:8081/api/top-shot-video/605a6c2eccfde85d86239b27", scene, true);
 
     var plane2 = MeshBuilder.CreatePlane("image2", { size: 5, sideOrientation: Mesh.DOUBLESIDE }, scene);
     plane2.position.set(0, 0, 2.7);
@@ -34,7 +34,7 @@ export default class Cube extends React.Component {
     plane2.material = new StandardMaterial("material2", scene);
     plane2.material.diffuseColor = new Color3(1, 1, 1);
     plane2.material.alpha = .8;
-    plane2.material.diffuseTexture = new Texture("https://assets.nbatopshot.com/resize/editions/1_metallic_gold_le_rare/1fc9b2f1-d444-4645-a12a-7d0500214fa2/play_1fc9b2f1-d444-4645-a12a-7d0500214fa2_1_metallic_gold_le_rare_capture_Game_2880_2880_Black.jpg", scene);
+    plane2.material.diffuseTexture = new Texture("http://localhost:8081/api/top-shot-photo/605a6c2eccfde85d86239b26", scene);
 
     var plane3 = MeshBuilder.CreatePlane("image3", { size: 5, sideOrientation: Mesh.DOUBLESIDE }, scene);
     plane3.position.set(2.7, 0, 0);
@@ -42,7 +42,7 @@ export default class Cube extends React.Component {
     plane3.material = new StandardMaterial("material3", scene);
     plane3.material.diffuseColor = new Color3(1, 1, 1);
     plane3.material.alpha = .8;
-    plane3.material.diffuseTexture = new Texture("https://assets.nbatopshot.com/resize/editions/1_metallic_gold_le_rare/1fc9b2f1-d444-4645-a12a-7d0500214fa2/play_1fc9b2f1-d444-4645-a12a-7d0500214fa2_1_metallic_gold_le_rare_capture_Category_2880_2880_Black.jpg", scene);
+    plane3.material.diffuseTexture = new Texture("http://localhost:8081/api/get-top-shot-photo", scene);
 
     var plane4 = MeshBuilder.CreatePlane("video", { size: 5, sideOrientation: Mesh.DOUBLESIDE }, scene);
     plane4.position.set(0, 2.7, 0);
