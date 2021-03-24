@@ -22,7 +22,7 @@ public class TopShotMediaService {
     @Autowired
     private TopShotMediasRepository topShotMediasRepository;
 
-    public List<ObjectId> upload(MultipartFile[] files) throws IOException{
+    public List<ObjectId> insert(MultipartFile[] files) throws IOException{
         List<TopShotMedia> topShotMedias = new ArrayList<>();
         for (MultipartFile file : files) {
             TopShotMedia topShotMedia = toTopShotMedia(file);
@@ -32,7 +32,7 @@ public class TopShotMediaService {
         return topShotMedias.stream().map(TopShotMedia::getId).collect(Collectors.toList());
     }
 
-    public byte[] getMediaAsBytesArray(String id) {
+    public byte[] findMediaAsBytesArray(String id) {
         Optional<TopShotMedia> topShotMediaOpt = findById(id);
         if (topShotMediaOpt.isPresent()) {
             TopShotMedia topShotMedia = topShotMediaOpt.get();
