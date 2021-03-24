@@ -32,10 +32,15 @@ export default class Cube extends React.Component {
   onSceneMount(e) {
     const { canvas, scene } = e;
     copyScene = scene;
-    
+
+    scene.clearColor = new Color3.Black();
     var light1 = new HemisphericLight("Omni", new Vector3(10, 10, 10), scene);
+    light1.intensity = .9;
+    light1.specular = new Color3.Black();
     var light2 = new HemisphericLight("Omni", new Vector3(-10, -10, -10), scene);
-    var camera = new ArcRotateCamera("Camera", -.9, 1.0, 20, new Vector3.Zero(), scene);
+    light2.intensity = .9;
+    light2.specular = new Color3.Black();
+    var camera = new ArcRotateCamera("Camera", -.9, 1.0, 15, new Vector3.Zero(), scene);
     camera.attachControl(canvas, true);
 
     var video = MeshBuilder.CreatePlane("video", { size: 5, sideOrientation: Mesh.DOUBLESIDE }, scene);
