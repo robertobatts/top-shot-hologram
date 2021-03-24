@@ -1,18 +1,14 @@
 import React from 'react';
 import './App.css';
-import { Input, Button } from '@material-ui/core';
+import { Input, Button, FormControl, InputLabel, Select } from '@material-ui/core';
 import Cube from './Cube';
 import UploadPage from './UploadPage';
 import webHandlers from './utils/webHandlers';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
-import { Engine, Scene } from 'react-babylonjs'
-import { ArcRotateCamera, MeshBuilder, HemisphericLight, Vector3, Mesh, StandardMaterial, Color3, VideoTexture, Texture } from '@babylonjs/core';
-
 
 
 export default class App extends React.Component {
@@ -22,8 +18,13 @@ export default class App extends React.Component {
 
     this.state = {
       mediaIdsPerCube: [["", "", "", "", "", ""]],
-      cubeIdx: 0
+      cubeIdx: 0,
+      playerNames: []
     }
+  }
+
+  componentDidMount() {
+    webHandlers.getAllPlayerNames().then(playerNames => this.setState({playerNames: playerNames}));
   }
 
   render() {
@@ -32,16 +33,30 @@ export default class App extends React.Component {
         <Router>
           <Switch>
             <Route path="/upload">
-              <UploadPage/>
+              <UploadPage />
             </Route>
             <Route path="/">
               <div>
                 <div>
-                  <Input placeholder="Player Name" onChange={(e) => this.handlePlayerNameChange(e.target.value)} />
+                  <FormControl variant="filled" className="form-control">
+                    <InputLabel htmlFor="filled-player-native-simple">Select Player</InputLabel>
+                    <Select
+                      native
+                      value={this.state.playerName}
+                      onChange={(e) => this.handlePlayerNameChange(e.target.value)}
+                      inputProps={{
+                        name: 'playerName',
+                        id: 'filled-player-native-simple',
+                      }}
+                    >
+                      <option aria-label="None" value="" />
+                      {this.state.playerNames.map((playerName, i) => <option key={i} value={playerName}>{playerName}</option>)}
+                    </Select>
+                  </FormControl>
                   <Button disabled={!this.state.playerName} onClick={() => this.triggerProcess()} variant="contained" color="primary">Trigger</Button>
                 </div>
                 <div className="cube-container">
-                  <Cube mediaIds={this.state.mediaIdsPerCube[this.state.cubeIdx]}/>
+                  <Cube mediaIds={this.state.mediaIdsPerCube[this.state.cubeIdx]} />
                 </div>
               </div>
             </Route>
@@ -59,7 +74,7 @@ export default class App extends React.Component {
 
   triggerProcess() {
     webHandlers.getCubeMediaIds(this.state.playerName).then(mediaIdsPerCube => {
-      this.setState({"mediaIdsPerCube": mediaIdsPerCube });
+      this.setState({ "mediaIdsPerCube": mediaIdsPerCube });
     });
   }
 }

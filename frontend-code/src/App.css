@@ -3,6 +3,10 @@
   height: 100%;
 }
 
+.form-control {
+  min-width: 250px !important;
+}
+
 .cube-container {
   
 }
