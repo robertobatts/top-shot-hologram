@@ -3,12 +3,16 @@ import './App.css';
 import { Input, Button } from '@material-ui/core';
 import Cube from './Cube';
 import UploadPage from './UploadPage';
+import webHandlers from './utils/webHandlers';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
+import { Engine, Scene } from 'react-babylonjs'
+import { ArcRotateCamera, MeshBuilder, HemisphericLight, Vector3, Mesh, StandardMaterial, Color3, VideoTexture, Texture } from '@babylonjs/core';
+
 
 
 export default class App extends React.Component {
@@ -16,7 +20,10 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {}
+    this.state = {
+      mediaIdsPerCube: [["", "", "", "", "", ""]],
+      cubeIdx: 0
+    }
   }
 
   render() {
@@ -30,11 +37,11 @@ export default class App extends React.Component {
             <Route path="/">
               <div>
                 <div>
-                  <Input placeholder="https://nbatopshot.com/moment/hustlewestbrook+73c2eb70-8ff3-4719-99e9-f57edc4196df" onChange={(event) => this.handleLinkInputChange(event.target.value)} />
-                  <Button disabled={false} onClick={() => this.triggerProcess()} variant="contained" color="primary">Trigger</Button>
+                  <Input placeholder="Player Name" onChange={(e) => this.handlePlayerNameChange(e.target.value)} />
+                  <Button disabled={!this.state.playerName} onClick={() => this.triggerProcess()} variant="contained" color="primary">Trigger</Button>
                 </div>
                 <div className="cube-container">
-                  <Cube></Cube>
+                  <Cube mediaIds={this.state.mediaIdsPerCube[this.state.cubeIdx]}/>
                 </div>
               </div>
             </Route>
@@ -44,14 +51,16 @@ export default class App extends React.Component {
     );
   }
 
-  handleLinkInputChange(newLink) {
-    if (newLink !== this.state.link) {
-      this.setState({ link: newLink });
+  handlePlayerNameChange(playerName) {
+    if (playerName !== this.state.playerName) {
+      this.setState({ "playerName": playerName });
     }
   }
 
-  async triggerProcess() {
-    console.log(this.state.link);
+  triggerProcess() {
+    webHandlers.getCubeMediaIds(this.state.playerName).then(mediaIdsPerCube => {
+      this.setState({"mediaIdsPerCube": mediaIdsPerCube });
+    });
   }
 }
 

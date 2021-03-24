@@ -43,7 +43,7 @@ public final class TopShotHologramsController {
         return ResponseEntity.ok(media);
     }
 
-    @GetMapping("/get-all-players")
+    @GetMapping("/player-names")
     public ResponseEntity getAllPlayers() {
         Set<String> playerNames = topShotCubeMetadataService.findAllPlayerNames();
         return ResponseEntity.ok(playerNames);
