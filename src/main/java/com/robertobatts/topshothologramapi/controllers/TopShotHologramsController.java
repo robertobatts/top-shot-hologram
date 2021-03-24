@@ -49,7 +49,7 @@ public final class TopShotHologramsController {
         return ResponseEntity.ok(playerNames);
     }
 
-    @GetMapping(value = "/top-shot-cube-metadata", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/top-shot-cube-metadata")
     public ResponseEntity getTopShotCubeMetadata(@RequestParam String playerName) throws IOException {
         List<List<String>> cubesMediasIds = topShotCubeMetadataService.findMediaIdsPerCube(playerName);
         return ResponseEntity.ok(cubesMediasIds);
