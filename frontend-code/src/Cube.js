@@ -48,42 +48,42 @@ export default class Cube extends React.Component {
     video.rotation.set(0, -Math.PI, 0);
     video.material = new StandardMaterial("material1", scene);
     video.material.diffuseColor = new Color3(1, 1, 1);
-    video.material.alpha = .8;
+    video.material.alpha = .9;
 
     var photo1 = MeshBuilder.CreatePlane("photo1", { size: 5, sideOrientation: Mesh.DOUBLESIDE }, scene);
     photo1.position.set(0, 0, 2.7);
     photo1.rotation.set(0, -Math.PI, 0);
     photo1.material = new StandardMaterial("material2", scene);
     photo1.material.diffuseColor = new Color3(1, 1, 1);
-    photo1.material.alpha = .8;
+    photo1.material.alpha = .9;
 
     var photo2 = MeshBuilder.CreatePlane("photo2", { size: 5, sideOrientation: Mesh.DOUBLESIDE }, scene);
     photo2.position.set(2.7, 0, 0);
     photo2.rotation.set(0, -Math.PI / 2, 0);
     photo2.material = new StandardMaterial("material3", scene);
     photo2.material.diffuseColor = new Color3(1, 1, 1);
-    photo2.material.alpha = .8;
+    photo2.material.alpha = .9;
   
     var photo3 = MeshBuilder.CreatePlane("photo3", { size: 5, sideOrientation: Mesh.DOUBLESIDE }, scene);
     photo3.position.set(0, 2.7, 0);
     photo3.rotation.set(Math.PI / 2, 0, 0);
     photo3.material = new StandardMaterial("material4", scene);
     photo3.material.diffuseColor = new Color3(1, 1, 1);
-    photo3.material.alpha = .8;
+    photo3.material.alpha = .9;
 
     var photo4 = MeshBuilder.CreatePlane("photo4", { size: 5, sideOrientation: Mesh.DOUBLESIDE }, scene);
     photo4.position.set(0, -2.7, 0);
     photo4.rotation.set(Math.PI / 2, 0, 0);
     photo4.material = new StandardMaterial("material5", scene);
     photo4.material.diffuseColor = new Color3(1, 1, 1);
-    photo4.material.alpha = .8
+    photo4.material.alpha = .9
 
     var photo5 = MeshBuilder.CreatePlane("photo5", { size: 5, sideOrientation: Mesh.DOUBLESIDE }, scene);
     photo5.position.set(-2.7, 0, 0);
     photo5.rotation.set(0, -Math.PI / 2, 0);
     photo5.material = new StandardMaterial("material6", scene);
     photo5.material.diffuseColor = new Color3(1, 1, 1);
-    photo5.material.alpha = .8;
+    photo5.material.alpha = .9;
 
     scene.getEngine().runRenderLoop(() => {
       if (scene) {

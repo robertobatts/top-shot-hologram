@@ -23,7 +23,6 @@ public final class TopShotHologramsController {
     @Autowired
     private TopShotCubeMetadataService topShotCubeMetadataService;
 
-
     @PostMapping(value = "/upload-top-shot", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity uploadTopShot(@RequestParam MultipartFile[] files, @RequestParam String playerName) throws IOException {
         List<ObjectId> mediaIds = topShotMediaService.insert(files);

@@ -22,10 +22,14 @@ public class TopShotMediaService {
     @Autowired
     private TopShotMediasRepository topShotMediasRepository;
 
-    public List<ObjectId> insert(MultipartFile[] files) throws IOException{
+    @Autowired
+    private TopShotRawMediaProcessor topShotRawMediaProcessor;
+
+    public List<ObjectId> insert(MultipartFile[] files) throws IOException {
+        List<byte[]> byteArrays = topShotRawMediaProcessor.process(files);
         List<TopShotMedia> topShotMedias = new ArrayList<>();
-        for (MultipartFile file : files) {
-            TopShotMedia topShotMedia = toTopShotMedia(file);
+        for (int i = 0; i < byteArrays.size(); i++) {
+            TopShotMedia topShotMedia = toTopShotMedia(byteArrays.get(i), files[i].getContentType());
             topShotMedias.add(topShotMedia);
         }
         topShotMediasRepository.insert(topShotMedias);
@@ -46,8 +50,8 @@ public class TopShotMediaService {
         return topShotMediasRepository.findById(objectId);
     }
 
-    private TopShotMedia toTopShotMedia(MultipartFile file) throws IOException {
-        return new TopShotMedia(ObjectId.get(), file.getContentType(),
-                new Binary(BsonBinarySubType.BINARY, file.getBytes()), LocalDateTime.now(), LocalDateTime.now());
+    private TopShotMedia toTopShotMedia(byte[] byteArray, String contentType) throws IOException {
+        return new TopShotMedia(ObjectId.get(), contentType,
+                new Binary(BsonBinarySubType.BINARY, byteArray), LocalDateTime.now(), LocalDateTime.now());
     }
 }
