@@ -25,6 +25,7 @@ const getAllPlayerNames = () => {
     })
     .catch(err => {
       console.log(err);
+      return [];
     });
 };
 
