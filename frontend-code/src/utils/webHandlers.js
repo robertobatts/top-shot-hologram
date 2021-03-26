@@ -1,5 +1,6 @@
 const axios = require("axios");
-const baseUrl = "http://localhost:8081/api";
+//const baseUrl = "http://localhost:8081/api"; // for development
+const baseUrl = "/api";
 
 
 const postTopShots = (playerName, files) => {
