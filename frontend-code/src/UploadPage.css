@@ -1,0 +1,11 @@
+label {
+  margin: 5px !important;
+  width: 164px;
+}
+
+.upload-page-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}

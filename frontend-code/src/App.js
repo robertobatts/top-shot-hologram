@@ -37,7 +37,7 @@ export default class App extends React.Component {
             </Route>
             <Route path="/">
               <div>
-                <div>
+                <div className="select-player-container">
                   <FormControl variant="filled" className="form-control">
                     <InputLabel htmlFor="filled-player-native-simple">Select Player</InputLabel>
                     <Select
@@ -53,7 +53,7 @@ export default class App extends React.Component {
                       {this.state.playerNames.map((playerName, i) => <option key={i} value={playerName}>{playerName}</option>)}
                     </Select>
                   </FormControl>
-                  <Button disabled={!this.state.playerName} onClick={() => this.triggerProcess()} variant="contained" color="primary">Trigger</Button>
+                  <Button disabled={!this.state.playerName} onClick={() => this.triggerProcess()} variant="contained" color="primary" style={{height: "100%"}}>Select</Button>
                 </div>
                 <div className="cube-container">
                   <Cube mediaIds={this.state.mediaIdsPerCube[this.state.cubeIdx]} />

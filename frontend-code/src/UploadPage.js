@@ -3,6 +3,7 @@ import './App.css';
 import { Input, Button } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import webHandlers from './utils/webHandlers';
+import './UploadPage.css';
 
 
 export default class UploadPage extends React.Component {
@@ -15,9 +16,11 @@ export default class UploadPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="upload-page-container">
+        <div>
         <Input placeholder="Player Name" onChange={(event) => this.handlePlayerNameChange(event.target.value)} />
         <div>
+          <div>
           <Button variant="contained" color={ this.state.video == null ? "default" : "primary"} component="label">
             Choose Video
             <input type="file" hidden onChange={(e) => this.handleChangeVideo(e)} />
@@ -30,6 +33,8 @@ export default class UploadPage extends React.Component {
             Choose Photo 2
             <input type="file" hidden onChange={(e) => this.handleChangePhoto2(e)} />
           </Button>
+          </div>
+          <div>
           <Button variant="contained" color={ this.state.photo3 == null ? "default" : "primary"} component="label">
             Choose Photo 3
             <input type="file" hidden onChange={(e) => this.handleChangePhoto3(e)} />
@@ -42,6 +47,7 @@ export default class UploadPage extends React.Component {
             Choose Photo 5
             <input type="file" hidden onChange={(e) => this.handleChangePhoto5(e)} />
           </Button>
+          </div>
           <Button
             variant="contained"
             color="primary"
@@ -57,6 +63,7 @@ export default class UploadPage extends React.Component {
         </div>
         <div>
           {this.state.success === false && "Files uploading failed"}
+        </div>
         </div>
       </div>
     );
