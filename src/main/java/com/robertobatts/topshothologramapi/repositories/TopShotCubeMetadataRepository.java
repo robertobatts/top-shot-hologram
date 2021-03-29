@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface TopShotCubeMetadataRepository extends MongoRepository<TopShotCubeMetadata, ObjectId> {
 
-    List<TopShotCubeMetadata> findByPlayerName(String playerName);
+    List<TopShotCubeMetadata> findByPlayerNameAndDateAndType(String playerName, String date, String type);
 }

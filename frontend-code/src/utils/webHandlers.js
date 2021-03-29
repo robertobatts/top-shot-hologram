@@ -1,12 +1,15 @@
 const axios = require("axios");
-//const baseUrl = "http://localhost:8081/api"; // for development
-const baseUrl = "/api";
+const baseUrl = "http://localhost:8081/api"; // for development
+//const baseUrl = "/api";
 
 
-const postTopShots = (playerName, files) => {
+const postTopShots = (playerName, files, date, type, borderColor) => {
   let formData = new FormData();
   files.forEach((file) => formData.append("files", file));
   formData.append("playerName", playerName);
+  formData.append("date", date);
+  formData.append("type", type);
+  formData.append("borderColor", borderColor);
   return axios
     .post(`${baseUrl}/upload-top-shot`, formData)
     .then(res => {
@@ -17,9 +20,9 @@ const postTopShots = (playerName, files) => {
     });
 };
 
-const getAllPlayerNames = () => {
+const getAllPlayers = () => {
   return axios
-    .get(`${baseUrl}/player-names`)
+    .get(`${baseUrl}/players`)
     .then(res => {
       return res.data;
     })
@@ -29,9 +32,9 @@ const getAllPlayerNames = () => {
     });
 };
 
-const getCubeMediaIds = (playerName) => {
+const getCubeMediaIds = (playerName, date, type) => {
   return axios
-    .get(`${baseUrl}/top-shot-cube-metadata?playerName=${playerName}`)
+    .get(`${baseUrl}/top-shot-cube-metadata?playerName=${playerName}&date=${date}&type=${type}`)
     .then(res => {
       return res.data;
     })
@@ -50,5 +53,5 @@ const getTopShotVideoLink = (id) => {
 
 
 export default {
-  postTopShots, getAllPlayerNames, getCubeMediaIds, getTopShotPhotoLink, getTopShotVideoLink
+  postTopShots, getAllPlayers, getCubeMediaIds, getTopShotPhotoLink, getTopShotVideoLink
 };
