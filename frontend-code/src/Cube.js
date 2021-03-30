@@ -115,7 +115,7 @@ export default class Cube extends React.Component {
 
     var photo5 = MeshBuilder.CreatePlane("photo5", { size: 5, sideOrientation: Mesh.DOUBLESIDE }, scene);
     photo5.position.set(-2.7, 0, 0);
-    photo5.rotation.set(0, -Math.PI / 2, 0);
+    photo5.rotation.set(0, Math.PI / 2, 0);
     photo5.material = new StandardMaterial("material6", scene);
     photo5.material.diffuseColor = new Color3(1, 1, 1);
     photo5.material.alpha = .8;
