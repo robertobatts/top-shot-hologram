@@ -17,15 +17,14 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      mediaIdsPerCube: [["", "", "", "", "", ""]],
-      cubeIdx: 0,
       players: [],
-      selectedPlayers: []
+      selectedPlayers: [],
+      isDisabled: true
     }
   }
 
   componentDidMount() {
-    webHandlers.getAllPlayers().then(players => this.setState({players: players}));
+    webHandlers.getAllPlayers().then(players => this.setState({ players: players }));
   }
 
   render() {
@@ -39,7 +38,7 @@ export default class App extends React.Component {
             <Route path="/">
               <div>
                 <div className="select-player-container">
-                <FormControl variant="filled" className="form-control">
+                  <FormControl variant="filled" className="form-control">
                     <InputLabel htmlFor="filled-player-native-simple">Select Player</InputLabel>
                     <Select
                       native
@@ -58,7 +57,7 @@ export default class App extends React.Component {
                     <InputLabel htmlFor="filled-datetype-native-simple">Select Date and Type</InputLabel>
                     <Select
                       native
-                      value={this.state.playerName}
+                      value={JSON.stringify(this.state.selectedPlayer)}
                       onChange={(e) => this.handleDateTypeChange(e.target.value)}
                       inputProps={{
                         name: 'datetype',
@@ -66,13 +65,13 @@ export default class App extends React.Component {
                       }}
                     >
                       <option aria-label="None" value="" />
-                      {this.state.selectedPlayers.map((selectedPlayer, i) => <option key={i} default value={JSON.stringify(selectedPlayer)}>{selectedPlayer.date + " " + selectedPlayer.type}</option>)}
+                      {this.state.selectedPlayers.map((selectedPlayer, i) => <option key={i} value={JSON.stringify(selectedPlayer)}>{selectedPlayer.date + " " + selectedPlayer.type}</option>)}
                     </Select>
                   </FormControl>
-                  <Button disabled={!this.state.selectedPlayer} onClick={() => this.triggerProcess()} variant="contained" color="primary" style={{height: "100%"}}>Select</Button>
+                  <Button disabled={this.state.isDisabled} onClick={() => this.triggerProcess()} variant="contained" color="primary" style={{ height: "100%" }}>Select</Button>
                 </div>
                 <div className="cube-container">
-                  <Cube mediaIds={this.state.mediaIdsPerCube[this.state.cubeIdx]} />
+                  <Cube selectedCube={this.state.selectedCube} />
                 </div>
               </div>
             </Route>
@@ -93,12 +92,15 @@ export default class App extends React.Component {
   }
 
   handleDateTypeChange(selectedPlayer) {
-    this.setState({ selectedPlayer: JSON.parse(selectedPlayer) });
+    if (selectedPlayer) {
+      this.setState({ selectedPlayer: JSON.parse(selectedPlayer), isDisabled: false });
+    }
   }
 
   triggerProcess() {
-    webHandlers.getCubeMediaIds(this.state.selectedPlayer.playerName, this.state.selectedPlayer.date, this.state.selectedPlayer.type).then(mediaIdsPerCube => {
-      this.setState({ mediaIdsPerCube: mediaIdsPerCube });
-    });
+    webHandlers.getTopshotCubeMetadata(this.state.selectedPlayer.playerName, this.state.selectedPlayer.date, this.state.selectedPlayer.type)
+      .then(selectedCube => {
+        this.setState({ selectedCube: selectedCube, isDisabled: true });
+      });
   }
 }

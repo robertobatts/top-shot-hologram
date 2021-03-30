@@ -1,5 +1,7 @@
 package com.robertobatts.topshothologramapi.controllers;
 
+import com.robertobatts.topshothologramapi.domain.BorderColor;
+import com.robertobatts.topshothologramapi.domain.TopShotCubeMetadata;
 import com.robertobatts.topshothologramapi.domain.TopShotPlayerDetails;
 import com.robertobatts.topshothologramapi.services.TopShotCubeMetadataService;
 import com.robertobatts.topshothologramapi.services.TopShotMediaService;
@@ -25,8 +27,14 @@ public final class TopShotHologramsController {
 
     @PostMapping(value = "/upload-top-shot", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity uploadTopShot(@RequestParam MultipartFile[] files, @RequestParam String playerName,
-                                        @RequestParam  String date, @RequestParam String type, String borderColor) throws IOException {
+                                        @RequestParam String date, @RequestParam String type,
+                                        @RequestParam(required = false) Integer r, @RequestParam(required = false) Integer g,
+                                        @RequestParam(required = false) Integer b) throws IOException {
         List<ObjectId> mediaIds = topShotMediaService.insert(files);
+        BorderColor borderColor = null;
+        if (r !=null && g!= null && b!= null) {
+            borderColor = new BorderColor(r, g, b);
+        }
         topShotCubeMetadataService.insert(playerName, date, type, borderColor, mediaIds);
         return ResponseEntity.ok().build();
     }
@@ -52,8 +60,8 @@ public final class TopShotHologramsController {
     @GetMapping(value = "/top-shot-cube-metadata")
     public ResponseEntity getTopShotCubeMetadata(@RequestParam String playerName,
                                                  @RequestParam String date, @RequestParam String type) {
-        List<List<String>> cubesMediasIds = topShotCubeMetadataService.findMediaIdsPerCube(playerName, date, type);
-        return ResponseEntity.ok(cubesMediasIds);
+        TopShotCubeMetadata topShotCubeMetadata = topShotCubeMetadataService.findTopShotCubeMetadata(playerName, date, type);
+        return ResponseEntity.ok(topShotCubeMetadata);
     }
 
 }

@@ -18,7 +18,7 @@ public class TopShotCubeMetadata {
 
     private String type;
 
-    private String borderColor;
+    private BorderColor borderColor;
 
     private List<ObjectId> mediaIds;
 
@@ -26,7 +26,7 @@ public class TopShotCubeMetadata {
 
     private LocalDateTime updatedDateTime;
 
-    public TopShotCubeMetadata(ObjectId id, String playerName, String date, String type, String borderColor, List<ObjectId> mediaIds,
+    public TopShotCubeMetadata(ObjectId id, String playerName, String date, String type, BorderColor borderColor, List<ObjectId> mediaIds,
                                LocalDateTime createdDateTime, LocalDateTime updatedDateTime) {
         this.id = id;
         this.playerName = playerName;
@@ -66,11 +66,11 @@ public class TopShotCubeMetadata {
         this.mediaIds = mediaIds;
     }
 
-    public String getBorderColor() {
+    public BorderColor getBorderColor() {
         return borderColor;
     }
 
-    public void setBorderColor(String borderColor) {
+    public void setBorderColor(BorderColor borderColor) {
         this.borderColor = borderColor;
     }
 

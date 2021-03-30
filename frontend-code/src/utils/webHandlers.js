@@ -32,7 +32,7 @@ const getAllPlayers = () => {
     });
 };
 
-const getCubeMediaIds = (playerName, date, type) => {
+const getTopshotCubeMetadata = (playerName, date, type) => {
   return axios
     .get(`${baseUrl}/top-shot-cube-metadata?playerName=${playerName}&date=${date}&type=${type}`)
     .then(res => {
@@ -53,5 +53,5 @@ const getTopShotVideoLink = (id) => {
 
 
 export default {
-  postTopShots, getAllPlayers, getCubeMediaIds, getTopShotPhotoLink, getTopShotVideoLink
+  postTopShots, getAllPlayers, getTopshotCubeMetadata, getTopShotPhotoLink, getTopShotVideoLink
 };

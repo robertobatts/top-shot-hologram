@@ -1,5 +1,6 @@
 package com.robertobatts.topshothologramapi.services;
 
+import com.robertobatts.topshothologramapi.domain.BorderColor;
 import com.robertobatts.topshothologramapi.domain.TopShotCubeMetadata;
 import com.robertobatts.topshothologramapi.domain.TopShotPlayerDetails;
 import com.robertobatts.topshothologramapi.repositories.TopShotCubeMetadataRepository;
@@ -17,10 +18,8 @@ public class TopShotCubeMetadataService {
     @Autowired
     private TopShotCubeMetadataRepository topShotCubeMetadataRepository;
 
-    public List<List<String>> findMediaIdsPerCube(String playerName, String date, String type) {
-        List<TopShotCubeMetadata> topShotCubeMetadataList = topShotCubeMetadataRepository
-                .findByPlayerNameAndDateAndType(playerName, date, type);
-        return topShotCubeMetadataList.stream().map(TopShotCubeMetadata::getMediaIdsAsString).collect(Collectors.toList());
+    public TopShotCubeMetadata findTopShotCubeMetadata(String playerName, String date, String type) {
+        return topShotCubeMetadataRepository.findByPlayerNameAndDateAndType(playerName, date, type);
     }
 
     public List<TopShotPlayerDetails> findAllPlayers() {
@@ -28,7 +27,7 @@ public class TopShotCubeMetadataService {
         return topShotCubeMetadataList.stream().map(this::toTopShotPlayerDetails).collect(Collectors.toList());
     }
 
-    public void insert(String playerName, String date, String type, String borderColor, List<ObjectId> mediaIds) {
+    public void insert(String playerName, String date, String type, BorderColor borderColor, List<ObjectId> mediaIds) {
         TopShotCubeMetadata topshotCubeMetadata = new TopShotCubeMetadata(
                 ObjectId.get(), playerName, date, type, borderColor, mediaIds, LocalDateTime.now(), LocalDateTime.now());
         topShotCubeMetadataRepository.insert(topshotCubeMetadata);
