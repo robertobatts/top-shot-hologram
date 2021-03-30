@@ -9,14 +9,18 @@ const postTopShots = (playerName, files, date, type, borderColor) => {
   formData.append("playerName", playerName);
   formData.append("date", date);
   formData.append("type", type);
-  formData.append("borderColor", borderColor);
+  if (borderColor) {
+    var r = parseInt("0x" + borderColor.slice(1, 3));
+    var g = parseInt("0x" + borderColor.slice(3, 5));
+    var b = parseInt("0x" + borderColor.slice(5, 7));
+    formData.append("r", r);
+    formData.append("g", g);
+    formData.append("b", b);
+  }
   return axios
     .post(`${baseUrl}/upload-top-shot`, formData)
     .then(res => {
       return res.data;
-    })
-    .catch(err => {
-      console.log(err);
     });
 };
 
