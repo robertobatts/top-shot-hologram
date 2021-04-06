@@ -1,11 +1,6 @@
 import React from 'react';
 import { FormGroup, FormControlLabel, Switch } from '@material-ui/core';
 import webHadlers from './utils/webHandlers';
-//import { Engine, Scene } from 'react-babylonjs';
-import {
-  ArcRotateCamera, MeshBuilder, HemisphericLight, Vector3, Mesh, StandardMaterial, Color3, Color4,
-  VideoTexture, Texture, Path3D, GlowLayer, Viewport, Scene, Engine
-} from '@babylonjs/core';
 
 var hologramScene;
 
@@ -90,9 +85,6 @@ export default class Cube extends React.Component {
   handleSwitch(checked) {
     this.setState({ isProjecting: checked }, () => {
       this.buildCanvas(checked);
-      if (this.state.selectedCube) {
-        this.updateScene(hologramScene);
-      }
     });
   }
 
@@ -114,7 +106,7 @@ export default class Cube extends React.Component {
 
       scene.clearColor = new BABYLON.Color4(0., 0., 0., 1.);
 
-      var camera1 = new BABYLON.ArcRotateCamera("Camera1", 12, 12, 12, new BABYLON.Vector3(0, 0, 0), scene);
+      var camera1 = new BABYLON.ArcRotateCamera("Camera1",  -.9, 1.0, 15, new BABYLON.Vector3.Zero(), scene);
       camera1.target = new BABYLON.Vector3(0., 0., 0.);
       scene.activeCameras.push(camera1);
       scene.activeCamera = camera1;
@@ -157,46 +149,46 @@ export default class Cube extends React.Component {
       light2.intensity = .9;
       light2.specular = new BABYLON.Color3.Black();
 
-      var video = BABYLON.MeshBuilder.CreatePlane("video", { size: 5, sideOrientation: Mesh.DOUBLESIDE }, scene);
+      var video = BABYLON.MeshBuilder.CreatePlane("video", { size: 5, sideOrientation: BABYLON.Mesh.DOUBLESIDE }, scene);
       video.position.set(0, 0, -2.7);
-      video.rotation.set(0, -Math.PI, 0);
+      video.rotation.set(0, 0, 0);
       video.material = new BABYLON.StandardMaterial("material1", scene);
       video.material.diffuseColor = new BABYLON.Color3(1, 1, 1);
       video.material.alpha = .8;
 
-      var photo1 = BABYLON.MeshBuilder.CreatePlane("photo1", { size: 5, sideOrientation: Mesh.DOUBLESIDE }, scene);
+      var photo1 = BABYLON.MeshBuilder.CreatePlane("photo1", { size: 5, sideOrientation: BABYLON.Mesh.DOUBLESIDE }, scene);
       photo1.position.set(0, 0, 2.7);
       photo1.rotation.set(0, -Math.PI, 0);
       photo1.material = new BABYLON.StandardMaterial("material2", scene);
       photo1.material.diffuseColor = new BABYLON.Color3(1, 1, 1);
       photo1.material.alpha = .8;
 
-      var photo2 = BABYLON.MeshBuilder.CreatePlane("photo2", { size: 5, sideOrientation: Mesh.DOUBLESIDE }, scene);
+      var photo2 = BABYLON.MeshBuilder.CreatePlane("photo2", { size: 5, sideOrientation: BABYLON.Mesh.DOUBLESIDE }, scene);
       photo2.position.set(2.7, 0, 0);
       photo2.rotation.set(0, -Math.PI / 2, 0);
       photo2.material = new BABYLON.StandardMaterial("material3", scene);
       photo2.material.diffuseColor = new BABYLON.Color3(1, 1, 1);
       photo2.material.alpha = .8;
 
-      var photo3 = BABYLON.MeshBuilder.CreatePlane("photo3", { size: 5, sideOrientation: Mesh.DOUBLESIDE }, scene);
+      var photo3 = BABYLON.MeshBuilder.CreatePlane("photo3", { size: 5, sideOrientation: BABYLON.Mesh.DOUBLESIDE }, scene);
       photo3.position.set(0, 2.7, 0);
       photo3.rotation.set(Math.PI / 2, 0, 0);
       photo3.material = new BABYLON.StandardMaterial("material4", scene);
       photo3.material.diffuseColor = new BABYLON.Color3(1, 1, 1);
       photo3.material.alpha = .8;
 
-      var photo4 = BABYLON.MeshBuilder.CreatePlane("photo4", { size: 5, sideOrientation: Mesh.DOUBLESIDE }, scene);
+      var photo4 = BABYLON.MeshBuilder.CreatePlane("photo4", { size: 5, sideOrientation: BABYLON.Mesh.DOUBLESIDE }, scene);
       photo4.position.set(0, -2.7, 0);
       photo4.rotation.set(Math.PI / 2, 0, 0);
       photo4.material = new BABYLON.StandardMaterial("material5", scene);
       photo4.material.diffuseColor = new BABYLON.Color3(1, 1, 1);
       photo4.material.alpha = .8;
 
-      var photo5 = BABYLON.MeshBuilder.CreatePlane("photo5", { size: 5, sideOrientation: Mesh.DOUBLESIDE }, scene);
+      var photo5 = BABYLON.MeshBuilder.CreatePlane("photo5", { size: 5, sideOrientation: BABYLON.Mesh.DOUBLESIDE }, scene);
       photo5.position.set(-2.7, 0, 0);
       photo5.rotation.set(0, Math.PI / 2, 0);
       photo5.material = new BABYLON.StandardMaterial("material6", scene);
-      photo5.material.diffuseColor = new Color3(1, 1, 1);
+      photo5.material.diffuseColor = new BABYLON.Color3(1, 1, 1);
       photo5.material.alpha = .8;
 
       var points1 = [new BABYLON.Vector3(2.7, 2.7, 2.7), new BABYLON.Vector3(2.7, -2.7, 2.7), new BABYLON.Vector3(2.7, -2.7, -2.7),
@@ -205,11 +197,11 @@ export default class Cube extends React.Component {
       var points2 = [new BABYLON.Vector3(-2.7, -2.7, -2.7), new BABYLON.Vector3(-2.7, -2.7, 2.7), new BABYLON.Vector3(-2.7, 2.7, 2.7),
       new BABYLON.Vector3(-2.7, 2.7, -2.7), new BABYLON.Vector3(-2.7, -2.7, -2.7), new BABYLON.Vector3(2.7, -2.7, -2.7),
       new BABYLON.Vector3(2.7, 2.7, -2.7), new BABYLON.Vector3(-2.7, 2.7, -2.7)];
-      var path3d1 = new Path3D(points1);
-      var border1 = Mesh.CreateLines("border1", path3d1.getPoints(), scene);
-      var path3d2 = new Path3D(points2);
-      var border2 = Mesh.CreateLines("border2", path3d2.getPoints(), scene);
-      var gl = new GlowLayer("glow", scene);
+      var path3d1 = new BABYLON.Path3D(points1);
+      var border1 = BABYLON.Mesh.CreateLines("border1", path3d1.getPoints(), scene);
+      var path3d2 = new BABYLON.Path3D(points2);
+      var border2 = BABYLON.Mesh.CreateLines("border2", path3d2.getPoints(), scene);
+      var gl = new BABYLON.GlowLayer("glow", scene);
       gl.addIncludedOnlyMesh(border1);
       gl.addIncludedOnlyMesh(border2);
 
@@ -304,6 +296,9 @@ export default class Cube extends React.Component {
       hologramScene = CreateScene();
     };
     initFunction().then(() => {
+      if (this.props.selectedCube) {
+        this.updateScene(hologramScene);
+      }
       sceneToRender = hologramScene;
       engine.runRenderLoop(function () {
         if (sceneToRender && sceneToRender.activeCamera) {
