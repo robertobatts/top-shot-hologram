@@ -107,6 +107,8 @@ export default class Cube extends React.Component {
 
       var camera1 = new BABYLON.ArcRotateCamera("Camera1",  -.9, 1.0, 15, new BABYLON.Vector3.Zero(), scene);
       camera1.target = new BABYLON.Vector3(0., 0., 0.);
+      camera1.useAutoRotationBehavior = true;
+      camera1.autoRotationBehavior.idleRotationSpeed = 0.3;
       scene.activeCameras.push(camera1);
       scene.activeCamera = camera1;
       scene.activeCamera.attachControl(canvas);
