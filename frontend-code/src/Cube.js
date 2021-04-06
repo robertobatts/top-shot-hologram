@@ -12,6 +12,27 @@ export default class Cube extends React.Component {
     this.state = { isProjecting: false }
   }
 
+  render() {
+    return (
+      <>
+        <FormGroup row style={{ justifyContent: "center" }}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={this.state.isProjecting}
+                onChange={(e) => this.handleSwitch(e.target.checked)}
+                name="checkedB"
+                color="primary"
+              />
+            }
+            label="Phone Projector"
+          />
+        </FormGroup>
+        <canvas id="canvas-hologram" style={{ height: "70vw", width: "70vw" }}></canvas>
+      </>
+    )
+  }
+
   componentDidUpdate(prevProps) {
     if (hologramScene && this.props.selectedCube != prevProps.selectedCube) {
       this.updateScene(hologramScene);
@@ -58,28 +79,6 @@ export default class Cube extends React.Component {
         }
       }
     }
-  }
-
-
-  render() {
-    return (
-      <>
-        <FormGroup row>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={this.state.isProjecting}
-                onChange={(e) => this.handleSwitch(e.target.checked)}
-                name="checkedB"
-                color="primary"
-              />
-            }
-            label="Phone Projector"
-          />
-        </FormGroup>
-        <canvas id="canvas-hologram" style={{ height: "70vw", width: "70vw" }}></canvas>
-      </>
-    )
   }
 
   handleSwitch(checked) {
