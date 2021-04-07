@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormGroup, FormControlLabel, Switch } from '@material-ui/core';
+import * as BABYLON from '@babylonjs/core/Legacy/legacy';
 import webHadlers from './utils/webHandlers';
 
 var hologramScene;
