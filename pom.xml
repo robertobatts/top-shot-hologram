@@ -64,7 +64,7 @@
 				<version>1.7.6</version>
 
 				<configuration>
-					<nodeVersion>v12.3.1</nodeVersion>
+					<nodeVersion>v12.13.0</nodeVersion>
 					<yarnVersion>v1.16.0</yarnVersion>
 					<workingDirectory>${frontend-src-dir}</workingDirectory>
 					<installDirectory>${project.build.directory}</installDirectory>
